@@ -1,4 +1,4 @@
-# ADR: CSS Architecture / Methodology for Large Scale React.js Project
+# ADR: CSS Architecture / Methodology
 
 ## Context and Problem Statement
 

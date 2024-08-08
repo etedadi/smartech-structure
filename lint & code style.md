@@ -1,53 +1,103 @@
-# ADR: Lint & Code Style for Large Scale React.js Project
+# ADR: Linting and Code Style for Large Scale React.js Project
 
 ## Context and Problem Statement
 
-Maintaining a consistent code style and ensuring code quality through linting is crucial for large-scale React.js projects. With a team of developers working on a complex application, having a standardized approach to linting and code style helps in reducing bugs, improving readability, and maintaining code consistency across the project.
+Maintaining consistent code style and quality across a large-scale React.js project is crucial for readability, maintainability, and reducing bugs. A robust linting and code style strategy ensures that all developers adhere to the same standards, leading to a more cohesive and efficient codebase.
 
 ## Decision Drivers
 
-1. **Consistency**: The linting and code style tools should enforce consistent coding practices across the entire codebase.
-2. **Ease of Use**: The tools should be easy to set up and use, integrating smoothly into the development workflow.
-3. **Customizability**: The tools should allow customization of rules and configurations to fit the project’s specific needs.
-4. **Community and Ecosystem**: The tools should have strong community support and be actively maintained.
-5. **Integration**: The tools should integrate well with development environments, CI/CD pipelines, and other tools used in the project.
+1. **Consistency**: Ensure a consistent code style across the entire codebase.
+2. **Error Prevention**: Catch potential errors and bad practices early.
+3. **Integration**: Seamlessly integrate with development workflows and CI/CD pipelines.
+4. **Community Support**: Strong community support and regular updates.
+5. **Customization**: Ability to customize rules according to project-specific needs.
 
 ## Considered Options
 
 1. **ESLint**
 2. **Prettier**
-3. **Stylelint**
-4. **Husky and lint-staged**
+3. **TSLint**
+4. **StandardJS**
+5. **Airbnb Style Guide**
+
+### Option 1: ESLint
+
+**Description**: ESLint is a highly configurable linting tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
+
+#### Pros
+- **Highly Customizable**: Extensive configuration options and plugins.
+- **Error Detection**: Excellent at catching a wide range of errors and code smells.
+- **Integration**: Integrates well with most code editors and CI/CD pipelines.
+
+#### Cons
+- **Configuration Overhead**: Initial setup and configuration can be time-consuming.
+- **Learning Curve**: Requires some learning to fully leverage its capabilities.
+
+### Option 2: Prettier
+
+**Description**: Prettier is an opinionated code formatter that enforces a consistent style by parsing your code and re-printing it with its own rules.
+
+#### Pros
+- **Consistency**: Ensures consistent code formatting across the codebase.
+- **Ease of Use**: Simple to set up and use, with minimal configuration.
+- **Integration**: Works well with ESLint and most code editors.
+
+#### Cons
+- **Opinionated**: Limited customization options compared to ESLint.
+- **Not a Linter**: Focuses solely on code formatting, not linting.
+
+### Option 3: TSLint
+
+**Description**: TSLint is a linter for TypeScript that helps in enforcing coding guidelines and catching errors in TypeScript code.
+
+#### Pros
+- **TypeScript Support**: Specifically designed for TypeScript, catching type-specific issues.
+- **Customizable**: Offers a range of configuration options and rules.
+
+#### Cons
+- **Deprecation**: Deprecated in favor of ESLint with TypeScript plugins.
+- **Community Support**: Limited updates and community support moving forward.
+
+### Option 4: StandardJS
+
+**Description**: StandardJS is a JavaScript style guide, linter, and formatter combined into one tool, enforcing a specific style guide.
+
+#### Pros
+- **Simplicity**: No configuration needed; enforces a strict style guide out of the box.
+- **Integration**: Works well with most code editors and CI/CD pipelines.
+
+#### Cons
+- **Lack of Flexibility**: Not customizable, which may not suit all projects.
+- **Opinionated**: Enforces a specific style that may not align with project preferences.
+
+### Option 5: Airbnb Style Guide
+
+**Description**: The Airbnb JavaScript Style Guide is a widely used set of style rules for writing clean and consistent JavaScript code.
+
+#### Pros
+- **Industry Standard**: Widely adopted and respected in the JavaScript community.
+- **Comprehensive**: Covers a wide range of best practices and style rules.
+
+#### Cons
+- **Complexity**: Can be overwhelming due to the number of rules.
+- **Configuration**: Requires setup and integration with ESLint.
 
 ## Decision Outcome
 
-### Chosen Tools: **ESLint, Prettier, and Husky with lint-staged**
+### Chosen Approach: **Combination of ESLint and Prettier with Airbnb Style Guide**
 
-#### Justification
+For our large-scale React.js project, we recommend using a combination of **ESLint**, **Prettier**, and the **Airbnb Style Guide**:
 
-- **ESLint**:
-    - **Consistency**: ESLint is a powerful tool for enforcing coding standards and catching common errors. It provides a wide range of rules and plugins that can be customized to maintain consistency across the codebase.
-    - **Ease of Use**: ESLint is widely used and well-documented, making it easy to integrate into various development environments and workflows.
-    - **Customizability**: ESLint allows for extensive customization of rules and configurations, enabling teams to enforce their specific coding standards.
-    - **Community and Ecosystem**: ESLint has strong community support and a rich ecosystem of plugins and integrations.
+- **ESLint**: For its extensive linting capabilities, customizability, and strong community support.
+- **Prettier**: For consistent code formatting and ease of integration with ESLint.
+- **Airbnb Style Guide**: As the base style guide to ensure adherence to widely accepted best practices and coding standards.
 
-- **Prettier**:
-    - **Consistency**: Prettier is an opinionated code formatter that enforces a consistent code style across the project. It works well in combination with ESLint to ensure both code style and quality.
-    - **Ease of Use**: Prettier automatically formats code according to predefined rules, reducing the need for manual formatting and improving developer productivity.
-    - **Customizability**: Prettier offers some configuration options for code formatting but is generally opinionated to enforce a consistent style.
-    - **Community and Ecosystem**: Prettier has strong community support and integrates well with ESLint and other development tools.
+This combination provides a robust and flexible linting and code style strategy, ensuring code quality and consistency across the codebase.
 
-- **Husky and lint-staged**:
-    - **Consistency**: Husky and lint-staged automate linting and code formatting tasks as part of the Git commit process, ensuring that code quality checks are performed before changes are committed.
-    - **Ease of Use**: These tools integrate with Git hooks, providing a seamless experience for running linting and formatting tasks before code is committed.
-    - **Customizability**: Husky and lint-staged can be customized to run specific linting and formatting tasks, allowing for flexibility in the development workflow.
-    - **Community and Ecosystem**: Both tools have strong community support and are widely used in modern development workflows.
+## Links
 
-#### Trade-offs
-
-- **ESLint vs. Stylelint**:
-    - **Stylelint**: Focuses on linting CSS and other stylesheet formats. While useful for managing style code, it is less relevant for JavaScript and TypeScript linting.
-    - **ESLint**: Provides comprehensive linting for JavaScript and TypeScript, making it the primary choice for ensuring code quality in a React.js project.
-
-- **Prettier vs. ESLint Formatting Rules**:
-    - **Prettier**: Handles automatic code formatting consistently across the project, reducing the need for manual formatting. Works best when used
+- [ESLint Official Website](https://eslint.org/)
+- [Prettier Official Website](https://prettier.io/)
+- [TSLint Official Website](https://palantir.github.io/tslint/)
+- [StandardJS Official Website](https://standardjs.com/)
+- [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)

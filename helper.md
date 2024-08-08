@@ -1,137 +1,126 @@
-# ADR: Helper Libraries for Large Scale React.js Project
+# ADR: Helper Libraries
 
 ## Context and Problem Statement
 
-Helper libraries are essential for enhancing productivity and streamlining development in large-scale React.js projects. They can provide utilities for common tasks, simplify code, and improve maintainability. Selecting appropriate helper libraries is crucial for ensuring consistency and efficiency across the development team.
+In a large-scale React.js project, utilizing helper libraries can significantly improve developer productivity, reduce boilerplate code, and ensure adherence to best practices. The selection of appropriate helper libraries is crucial for maintaining code quality and accelerating development.
 
 ## Decision Drivers
 
-1. **Utility**: Libraries should provide useful functions or features that address common development needs.
-2. **Compatibility**: Libraries should be compatible with React and other technologies used in the project.
-3. **Performance**: Libraries should be efficient and not introduce performance bottlenecks.
-4. **Maintainability**: Libraries should be well-maintained and actively supported.
-5. **Ease of Use**: Libraries should be easy to integrate and use within the project.
-6. **Community Support**: Libraries with a strong community and good documentation are preferred.
+1. **Utility**: Provides essential utility functions that simplify common tasks.
+2. **Performance**: Efficient and performant, minimizing the impact on application performance.
+3. **Community Support**: Widely used and well-maintained with good documentation.
+4. **Compatibility**: Integrates well with React and other project dependencies.
+5. **Ease of Use**: User-friendly API and minimal learning curve.
 
 ## Considered Options
 
 1. **Lodash**
-2. **Date-fns / Moment.js**
-3. **axios / fetch**
-4. **classnames**
-5. **react-query / SWR**
-6. **yup / Joi**
+2. **Moment.js / date-fns**
+3. **Axios**
+4. **uuid**
+5. **immer**
+6. **validator**
+
+### Option 1: Lodash
+
+**Description**: Lodash is a modern JavaScript utility library delivering modularity, performance, and extras.
+
+#### Pros
+- **Comprehensive**: Provides a wide range of utility functions for common tasks.
+- **Performance**: Optimized for performance with lazy evaluation and memoization.
+- **Modular**: Allows importing specific functions to reduce bundle size.
+
+#### Cons
+- **Bundle Size**: Can be large if not used modularly.
+- **Redundancy**: Some functions may be redundant with ES6 features.
+
+### Option 2: Moment.js / date-fns
+
+**Description**: Moment.js is a library for parsing, validating, manipulating, and formatting dates. date-fns offers similar functionality but with a functional programming approach and smaller bundle size.
+
+#### Pros
+- **Comprehensive**: Extensive support for date and time manipulation.
+- **Ease of Use**: Intuitive API for working with dates.
+
+#### Cons (Moment.js)
+- **Bundle Size**: Relatively large, impacting performance.
+- **Deprecation**: Moment.js is in maintenance mode, with no new features planned.
+
+#### Pros (date-fns)
+- **Performance**: Smaller bundle size and functional programming approach.
+- **Modular**: Import only the functions needed, reducing bundle size.
+
+### Option 3: Axios
+
+**Description**: Axios is a promise-based HTTP client for the browser and Node.js.
+
+#### Pros
+- **Ease of Use**: Simple API for making HTTP requests.
+- **Interceptors**: Support for request and response interceptors.
+- **Compatibility**: Works well with modern JavaScript environments.
+
+#### Cons
+- **Bundle Size**: Adds to the bundle size compared to native fetch API.
+- **Configuration Overhead**: Requires setup for advanced use cases.
+
+### Option 4: uuid
+
+**Description**: uuid is a library for generating RFC-compliant UUIDs.
+
+#### Pros
+- **Simplicity**: Easy to use for generating unique identifiers.
+- **Performance**: Lightweight and performant.
+- **Compatibility**: Works well in browser and Node.js environments.
+
+#### Cons
+- **Limited Scope**: Only generates UUIDs, not a general utility library.
+
+### Option 5: immer
+
+**Description**: Immer is a library that allows you to work with immutable state in a more convenient way.
+
+#### Pros
+- **Ease of Use**: Simplifies handling immutable state.
+- **Performance**: Efficient handling of immutable data structures.
+- **Integration**: Works well with Redux and other state management libraries.
+
+#### Cons
+- **Bundle Size**: Adds to the bundle size.
+- **Learning Curve**: Requires understanding of its concepts and API.
+
+### Option 6: validator
+
+**Description**: validator is a library for string validation and sanitization.
+
+#### Pros
+- **Comprehensive**: Provides a wide range of validation and sanitization functions.
+- **Ease of Use**: Simple API for common validation tasks.
+- **Performance**: Efficient and lightweight.
+
+#### Cons
+- **Limited Scope**: Focused solely on string validation and sanitization.
 
 ## Decision Outcome
 
-### Chosen Approach: **Lodash, Date-fns, axios, classnames, react-query, and yup**
+### Chosen Approach: **Combination of Lodash, date-fns, Axios, uuid, immer, and validator**
 
-#### Justification
+For our large-scale React.js project, we recommend the following helper libraries:
 
-- **Lodash**: Provides a wide range of utility functions for common programming tasks, such as data manipulation and object handling. It helps simplify complex tasks and ensures consistent code.
+- **Lodash**: For its comprehensive utility functions and performance optimizations.
+- **date-fns**: For date and time manipulation, due to its functional approach and smaller bundle size.
+- **Axios**: For making HTTP requests, thanks to its simplicity and features like interceptors.
+- **uuid**: For generating unique identifiers in a simple and efficient manner.
+- **immer**: For managing immutable state in a more convenient and performant way.
+- **validator**: For comprehensive string validation and sanitization.
 
-- **Date-fns**: A modern alternative to Moment.js for handling dates and times. It offers a modular approach, allowing you to import only the functions you need, which helps reduce bundle size and improve performance. Moment.js is deprecated in favor of more modern libraries, making Date-fns a preferable choice.
-
-- **axios**: A popular HTTP client for making requests. It offers a straightforward API and supports features such as interceptors and request/response transformation. `fetch` is another option, but `axios` provides a more feature-rich experience and better error handling.
-
-- **classnames**: A utility for conditionally joining class names together. It simplifies the management of dynamic class names in React components, improving readability and maintainability.
-
-- **react-query**: Provides powerful hooks for data fetching, caching, and synchronization. It simplifies server-state management and helps reduce boilerplate code related to data fetching and caching.
-
-- **yup**: A schema validation library that integrates well with Formik for form validation. It provides a fluent API for defining complex validation schemas and handling validation logic.
-
-#### Trade-offs
-
-- **Lodash vs. Native JavaScript**:
-    - **Native JavaScript**: Modern JavaScript has incorporated many features that Lodash provides, such as array methods and object manipulation. For simple tasks, native JavaScript may be sufficient and reduce dependencies.
-    - **Lodash**: Offers a comprehensive set of utilities, making it easier to handle more complex scenarios and maintain consistent code.
-
-- **Date-fns vs. Moment.js**:
-    - **Moment.js**: While it is widely used, Moment.js is large and has been deprecated in favor of more modern solutions.
-    - **Date-fns**: Provides a more modular and lightweight approach, aligning with modern development practices.
-
-- **axios vs. fetch**:
-    - **fetch**: A built-in browser API for making HTTP requests. It is native and has a simpler API but lacks some of the advanced features and error handling provided by `axios`.
-    - **axios**: Offers a more feature-rich API and better error handling, making it a preferred choice for many developers.
-
-- **react-query vs. SWR**:
-    - **SWR**: Another library for data fetching with a focus on simplicity and ease of use. It is similar to `react-query` but may have fewer features.
-    - **react-query**: Provides a more comprehensive set of features for caching, synchronization, and data management, making it more suitable for complex use cases.
-
-- **yup vs. Joi**:
-    - **Joi**: A powerful validation library with a rich set of features but is not as commonly used in React projects.
-    - **yup**: Integrates seamlessly with Formik and provides a more React-centric approach to schema validation.
-
-## Pros and Cons of the Options
-
-### Lodash
-
-- **Pros**:
-    - Provides a wide range of utility functions
-    - Simplifies complex programming tasks
-    - Ensures consistent code
-
-- **Cons**:
-    - Adds an additional dependency
-    - Some functionality may overlap with modern JavaScript
-
-### Date-fns
-
-- **Pros**:
-    - Modular and lightweight
-    - Modern alternative to Moment.js
-    - Reduces bundle size
-
-- **Cons**:
-    - May require more imports compared to Moment.js
-
-### axios
-
-- **Pros**:
-    - Feature-rich and easy to use
-    - Supports interceptors and request/response transformation
-    - Better error handling compared to `fetch`
-
-- **Cons**:
-    - Adds an additional dependency
-
-### classnames
-
-- **Pros**:
-    - Simplifies conditional class name management
-    - Improves readability and maintainability
-
-- **Cons**:
-    - Adds an additional dependency
-
-### react-query
-
-- **Pros**:
-    - Powerful hooks for data fetching and caching
-    - Reduces boilerplate code
-    - Simplifies server-state management
-
-- **Cons**:
-    - Adds an additional dependency
-    - May be overkill for simple data fetching needs
-
-### yup
-
-- **Pros**:
-    - Fluent API for schema validation
-    - Integrates well with Formik
-    - Provides comprehensive validation capabilities
-
-- **Cons**:
-    - Adds an additional dependency
+This combination provides a robust set of tools to enhance productivity, maintain code quality, and manage common tasks effectively.
 
 ## Links
 
-- [Lodash](https://lodash.com/)
-- [Date-fns](https://date-fns.org/)
-- [axios](https://axios-http.com/)
-- [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
-- [classnames](https://github.com/JedWatson/classnames)
-- [react-query](https://react-query.tanstack.com/)
-- [yup](https://github.com/jquense/yup)
-
+- [Lodash Official Website](https://lodash.com/)
+- [Moment.js Official Website](https://momentjs.com/)
+- [date-fns Official Website](https://date-fns.org/)
+- [Axios Official Website](https://axios-http.com/)
+- [uuid GitHub Repository](https://github.com/uuidjs/uuid)
+- [immer Official Website](https://immerjs.github.io/immer/)
+- [validator GitHub Repository](https://github.com/validatorjs/validator.js)

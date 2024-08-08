@@ -1,122 +1,105 @@
-# ADR: Monitoring / Log Manager for Large Scale React.js Project
+# ADR: Monitoring and Log Management for Large Scale React.js Project
 
 ## Context and Problem Statement
 
-Effective monitoring and logging are essential for maintaining the reliability and performance of a large-scale React.js project. With a complex application serving over 100,000 users, monitoring performance metrics, tracking errors, and managing logs are crucial for diagnosing issues, ensuring uptime, and improving user experience.
+Effective monitoring and log management are critical for maintaining the health and performance of a large-scale React.js application. They provide insights into application behavior, help diagnose issues, and ensure reliable performance.
 
 ## Decision Drivers
 
-1. **Real-Time Monitoring**: The solution should provide real-time insights into application performance and user interactions.
-2. **Error Tracking**: It should efficiently capture and track errors, including front-end errors and back-end issues.
-3. **Log Management**: The tool should manage and analyze logs from various sources, including client-side and server-side logs.
-4. **Scalability**: The solution should scale with the application's growth and handle increasing volumes of data and traffic.
-5. **Integration**: It should integrate well with existing tools and workflows, including deployment pipelines and alerting systems.
-6. **Ease of Use**: The tool should be user-friendly and provide actionable insights with minimal configuration.
+1. **Real-time Monitoring**: Ability to monitor application performance in real-time.
+2. **Scalability**: Capable of handling large volumes of data and scaling with the application.
+3. **Integration**: Seamlessly integrates with existing infrastructure and tools.
+4. **Ease of Use**: User-friendly interface and ease of setup and configuration.
+5. **Alerting and Notifications**: Robust alerting system to notify the team of issues promptly.
 
 ## Considered Options
 
 1. **Sentry**
-2. **LogRocket**
-3. **Datadog**
-4. **New Relic**
-5. **Elastic Stack (ELK Stack)**
+2. **Datadog**
+3. **LogRocket**
+4. **Elastic Stack (ELK)**
+5. **New Relic**
+
+### Option 1: Sentry
+
+**Description**: Sentry is an open-source error tracking tool that helps developers monitor and fix crashes in real-time.
+
+#### Pros
+- **Real-time Error Tracking**: Provides real-time insights into errors and crashes.
+- **Integration**: Integrates with many tools and services (e.g., GitHub, Slack).
+- **User Insights**: Captures user interactions leading to errors.
+
+#### Cons
+- **Limited Metrics**: Primarily focused on error tracking rather than full monitoring.
+- **Cost**: Advanced features require a paid plan.
+
+### Option 2: Datadog
+
+**Description**: Datadog is a comprehensive monitoring and analytics platform for infrastructure, applications, logs, and more.
+
+#### Pros
+- **Comprehensive Monitoring**: Covers infrastructure, application performance, logs, and more.
+- **Scalability**: Handles large volumes of data and scales with the application.
+- **Integration**: Integrates with a wide range of services and tools.
+
+#### Cons
+- **Cost**: Can be expensive, especially for large-scale usage.
+- **Complexity**: May have a steep learning curve for new users.
+
+### Option 3: LogRocket
+
+**Description**: LogRocket is a front-end application monitoring solution that helps developers understand issues in their applications.
+
+#### Pros
+- **Session Replay**: Provides a video-like replay of user sessions for debugging.
+- **User Insights**: Captures detailed user interactions and performance metrics.
+- **Integration**: Works well with tools like Redux and supports error tracking.
+
+#### Cons
+- **Frontend Focus**: Primarily focuses on frontend monitoring and does not cover backend.
+- **Cost**: Advanced features and higher usage tiers require a paid plan.
+
+### Option 4: Elastic Stack (ELK)
+
+**Description**: Elastic Stack, also known as ELK (Elasticsearch, Logstash, Kibana), is a powerful open-source log management and analytics platform.
+
+#### Pros
+- **Open Source**: Free to use with extensive community support.
+- **Scalability**: Scales well with large data volumes.
+- **Customizable**: Highly customizable and flexible for different use cases.
+
+#### Cons
+- **Complexity**: Requires significant setup and maintenance effort.
+- **Learning Curve**: Steep learning curve for new users.
+
+### Option 5: New Relic
+
+**Description**: New Relic provides a comprehensive suite of tools for monitoring and analyzing application performance.
+
+#### Pros
+- **Comprehensive Monitoring**: Covers application performance, infrastructure, logs, and more.
+- **Real-time Insights**: Provides real-time monitoring and analytics.
+- **Integration**: Integrates with many tools and platforms.
+
+#### Cons
+- **Cost**: Can be expensive, especially for extensive monitoring needs.
+- **Complexity**: May have a steep learning curve for new users.
 
 ## Decision Outcome
 
-### Chosen Tools: **Sentry and Datadog**
+### Chosen Approach: **Combination of Datadog and Sentry**
 
-#### Justification
+For our large-scale React.js project, we recommend using a combination of **Datadog** and **Sentry**:
 
-- **Sentry**:
-    - **Real-Time Monitoring**: Sentry provides real-time error tracking and monitoring for both front-end and back-end applications. It captures detailed error reports and stack traces, allowing for quick diagnosis and resolution of issues.
-    - **Error Tracking**: Specializes in tracking and aggregating errors, providing context such as user actions, device information, and environment details. It supports various integrations and platforms, including JavaScript, React, and Next.js.
-    - **Log Management**: While Sentry focuses more on error tracking, it also offers basic log management features through integrations with other logging tools.
-    - **Scalability**: Sentry scales well with application size and complexity, handling high volumes of error reports and user interactions.
-    - **Integration**: Easily integrates with popular development and deployment tools, including GitHub, Slack, and various CI/CD pipelines.
-    - **Ease of Use**: Provides a user-friendly interface with actionable insights and alerting capabilities.
+- **Datadog**: For comprehensive monitoring of infrastructure, application performance, and logs. Datadog's scalability and wide range of integrations make it suitable for our needs.
+- **Sentry**: For real-time error tracking and detailed insights into application crashes. Sentry's user interaction tracking will help us quickly identify and fix frontend issues.
 
-- **Datadog**:
-    - **Real-Time Monitoring**: Datadog offers comprehensive monitoring solutions, including application performance monitoring (APM), infrastructure monitoring, and real-time dashboards. It provides a unified view of performance metrics and logs.
-    - **Error Tracking**: Supports error tracking across both front-end and back-end services, with detailed performance insights and distributed tracing.
-    - **Log Management**: Provides robust log management capabilities, including log aggregation, search, and analysis. It supports various log sources and integrates with other monitoring tools.
-    - **Scalability**: Datadog is designed to handle large-scale environments and can manage extensive data volumes and traffic.
-    - **Integration**: Integrates well with a wide range of tools and services, including cloud providers, container orchestration platforms, and development tools.
-    - **Ease of Use**: Offers a comprehensive and intuitive interface for monitoring, analyzing, and alerting on various metrics and logs.
-
-#### Trade-offs
-
-- **Sentry vs. LogRocket**:
-    - **LogRocket**: Provides session replay and detailed user interaction tracking, which is useful for debugging user issues. However, it focuses more on session replay and front-end tracking rather than comprehensive error tracking and monitoring.
-    - **Sentry**: Offers extensive error tracking and integration capabilities, making it a better fit for overall error management and monitoring.
-
-- **Datadog vs. New Relic**:
-    - **New Relic**: Offers robust APM and monitoring features with strong performance metrics. However, Datadog provides more comprehensive log management and a broader set of monitoring capabilities.
-    - **Datadog**: Provides a unified monitoring solution with both APM and log management, making it suitable for diverse monitoring needs.
-
-- **Datadog vs. Elastic Stack (ELK Stack)**:
-    - **Elastic Stack (ELK Stack)**: Offers powerful log aggregation and search capabilities, with extensive customization options. It requires more setup and maintenance compared to Datadog.
-    - **Datadog**: Provides a more integrated and user-friendly solution with less setup and maintenance effort, while still offering robust log management and monitoring features.
-
-## Pros and Cons of the Options
-
-### Sentry
-
-- **Pros**:
-    - Comprehensive error tracking and monitoring
-    - Real-time error reporting with detailed context
-    - Strong integrations with development tools
-    - User-friendly interface
-
-- **Cons**:
-    - Limited log management capabilities compared to dedicated logging tools
-    - May require integration with other tools for complete logging and monitoring
-
-### Datadog
-
-- **Pros**:
-    - Comprehensive monitoring solution with APM and log management
-    - Real-time performance metrics and dashboards
-    - Scalable and integrates well with various tools and platforms
-
-- **Cons**:
-    - Can be more complex to set up and configure
-    - Cost may be higher compared to simpler monitoring solutions
-
-### LogRocket
-
-- **Pros**:
-    - Detailed session replay and user interaction tracking
-    - Useful for debugging front-end issues
-    - Intuitive interface for session analysis
-
-- **Cons**:
-    - Focuses more on session replay rather than comprehensive error tracking
-    - Less suitable for back-end error tracking and monitoring
-
-### New Relic
-
-- **Pros**:
-    - Robust APM and performance monitoring
-    - Strong performance metrics and insights
-    - Comprehensive monitoring capabilities
-
-- **Cons**:
-    - Less integrated log management compared to Datadog
-    - Can be complex to set up and use
-
-### Elastic Stack (ELK Stack)
-
-- **Pros**:
-    - Powerful log aggregation and search capabilities
-    - Highly customizable and flexible
-    - Strong community support and ecosystem
-
-- **Cons**:
-    - Requires more setup and maintenance
-    - May be more complex to configure compared to integrated solutions like Datadog
+This combination provides a robust monitoring and log management solution, ensuring both comprehensive performance monitoring and real-time error tracking.
 
 ## Links
 
-- [Sentry](https://sentry.io/)
-- [Datadog](https://www.datadoghq.com/)
-- [LogRocket](https://logroc
+- [Sentry Official Website](https://sentry.io/)
+- [Datadog Official Website](https://www.datadoghq.com/)
+- [LogRocket Official Website](https://logrocket.com/)
+- [Elastic Stack (ELK) Official Website](https://www.elastic.co/what-is/elk-stack)
+- [New Relic Official Website](https://newrelic.com/)

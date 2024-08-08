@@ -1,152 +1,120 @@
-# ADR: Documentation for Large Scale React.js Project
+# ADR: Documentation Strategy for Large Scale React.js Project
 
 ## Context and Problem Statement
 
-Effective documentation is essential for maintaining a large-scale React.js project. Good documentation facilitates collaboration, onboarding, and ongoing development by providing clear information on how the project works, how to contribute, and how to use various components and tools.
+Effective documentation is crucial for maintaining a large-scale React.js project, especially as the team grows and new developers are onboarded. High-quality documentation ensures that team members can understand, maintain, and extend the codebase efficiently. This ADR outlines the strategy for documenting the project, including the tools and practices to be used.
 
 ## Decision Drivers
 
-1. **Comprehensiveness**: Documentation should cover all aspects of the project, including architecture, components, APIs, and development processes.
-2. **Accessibility**: It should be easy to access and navigate, allowing developers and stakeholders to find information quickly.
-3. **Consistency**: The documentation should follow a consistent format and style to ensure clarity and coherence.
-4. **Maintainability**: Documentation should be easy to update and maintain as the project evolves.
-5. **Integration**: It should integrate well with development tools and workflows.
-6. **User-Friendliness**: The documentation should be clear and understandable for both new and experienced developers.
+1. **Clarity**: Clear and concise documentation for developers and stakeholders.
+2. **Consistency**: Uniform documentation practices across the entire project.
+3. **Ease of Use**: Simple tools and workflows for writing and maintaining documentation.
+4. **Integration**: Seamless integration with the development workflow and CI/CD pipelines.
+5. **Community Support**: Widely used and well-supported tools with good documentation.
 
 ## Considered Options
 
-1. **Markdown Files in Repository**
-2. **Dedicated Documentation Platforms (e.g., Docusaurus, GitBook)**
-3. **Inline Code Documentation (e.g., JSDoc)**
-4. **Wikis (e.g., GitHub Wiki)**
-5. **API Documentation Tools (e.g., Swagger, Postman)**
-6. **Storybook**
-7. **Kitchen Sink**
+1. **Storybook**
+2. **Docusaurus**
+3. **JSDoc**
+4. **Markdown with GitHub Pages**
+5. **Confluence**
+6. **Kitchen Sink**
+
+### Option 1: Storybook
+
+**Description**: Storybook is an open-source tool for developing UI components in isolation for React, Vue, and Angular. It makes building and documenting UI components easier.
+
+#### Pros
+- **Component Isolation**: Allows for developing and testing components in isolation.
+- **Interactive Documentation**: Provides a live, interactive environment for exploring and documenting components.
+- **Add-ons**: Rich ecosystem of add-ons for additional functionality.
+
+#### Cons
+- **Learning Curve**: Requires learning how to set up and use Storybook.
+- **Setup Overhead**: Initial setup and configuration can be time-consuming.
+
+### Option 2: Docusaurus
+
+**Description**: Docusaurus is an open-source static site generator that makes it easy to maintain open-source documentation websites.
+
+#### Pros
+- **Ease of Use**: Simple setup and intuitive for creating documentation websites.
+- **Customization**: Highly customizable with themes and plugins.
+- **Markdown Support**: Uses Markdown for writing documentation, which is easy to learn and use.
+
+#### Cons
+- **Static Site**: Limited to static content, not suitable for interactive documentation like Storybook.
+- **Additional Hosting**: Requires hosting for the generated static site.
+
+### Option 3: JSDoc
+
+**Description**: JSDoc is a tool for generating documentation from JavaScript source code comments.
+
+#### Pros
+- **Inline Documentation**: Allows documenting code inline, making it easy to keep documentation up to date.
+- **Standardized**: Widely used and supported in the JavaScript community.
+- **Automated**: Automatically generates HTML documentation from comments.
+
+#### Cons
+- **Limited Scope**: Focused on code documentation, not suitable for broader project documentation.
+- **Learning Curve**: Requires understanding of JSDoc syntax and conventions.
+
+### Option 4: Markdown with GitHub Pages
+
+**Description**: Using Markdown files for documentation and hosting them on GitHub Pages.
+
+#### Pros
+- **Simplicity**: Easy to write and maintain using Markdown.
+- **Integration**: Seamless integration with GitHub repositories.
+- **Free Hosting**: GitHub Pages provides free hosting for documentation.
+
+#### Cons
+- **Static Content**: Limited to static content, no interactive documentation.
+- **Customization**: Limited customization options compared to tools like Docusaurus.
+
+### Option 5: Confluence
+
+**Description**: Confluence is a team collaboration tool for creating, sharing, and collaborating on projects and documentation.
+
+#### Pros
+- **Collaboration**: Excellent for team collaboration and knowledge sharing.
+- **Integration**: Integrates well with other Atlassian tools like Jira.
+- **Rich Features**: Offers a wide range of features for documentation and project management.
+
+#### Cons
+- **Cost**: Requires a subscription, which can be expensive for large teams.
+- **Learning Curve**: Requires learning how to use Confluence effectively.
+
+### Option 6: Kitchen Sink
+
+**Description**: A custom-built documentation solution that includes various types of documentation like API docs, user guides, and tutorials.
+
+#### Pros
+- **Tailored Solution**: Fully customizable to meet specific project needs.
+- **Comprehensive**: Can include various types of documentation in one place.
+
+#### Cons
+- **Maintenance**: Requires significant effort to build and maintain.
+- **Development Overhead**: Time-consuming to set up and manage.
 
 ## Decision Outcome
 
-### Chosen Approach: **Markdown Files in Repository with Dedicated Documentation Platform and Storybook**
+### Chosen Approach: **Combination of Storybook, Docusaurus, and JSDoc**
 
-#### Justification
+For our large-scale React.js project, we recommend using a combination of **Storybook**, **Docusaurus**, and **JSDoc**:
 
-- **Comprehensiveness**: Markdown files in the repository provide detailed documentation on the architecture, components, and development processes. A dedicated documentation platform like Docusaurus offers a structured solution for comprehensive documentation, including user guides and developer instructions. Storybook provides interactive component documentation and showcases.
+- **Storybook**: For interactive documentation and isolated development of UI components.
+- **Docusaurus**: For creating a static site for general project documentation, user guides, and tutorials.
+- **JSDoc**: For inline code documentation, ensuring that the codebase is well-documented and easy to understand.
 
-- **Accessibility**: Markdown files are easily accessible within the repository, and dedicated platforms offer searchable and navigable documentation sites. Storybook allows developers to interact with components and view their various states, improving accessibility and understanding.
-
-- **Consistency**: A dedicated documentation platform ensures consistent formatting and styling. Storybook provides a consistent view of component states and usage, which helps maintain uniformity in UI components and their documentation.
-
-- **Maintainability**: Markdown files and dedicated platforms can be updated easily as the project evolves. Storybook documentation updates as components change, ensuring that UI documentation stays current with the latest design and functionality.
-
-- **Integration**: Markdown files are integrated with version control systems, and dedicated platforms fit well within development workflows. Storybook integrates with development environments and build processes, providing a seamless way to document and test UI components.
-
-- **User-Friendliness**: Markdown files are familiar to developers, and dedicated platforms offer enhanced features like search and interactive examples. Storybook provides a hands-on approach to understanding component behavior and design, enhancing the user experience for both developers and designers.
-
-#### Trade-offs
-
-- **Markdown Files vs. Dedicated Documentation Platforms**:
-    - **Markdown Files**: Simple and effective for smaller projects or specific documentation needs. However, they may lack advanced features and structured navigation provided by dedicated platforms.
-    - **Dedicated Documentation Platforms**: Offer enhanced features, such as search, versioning, and structured navigation, which are beneficial for larger projects with complex documentation requirements.
-
-- **Markdown Files vs. Inline Code Documentation**:
-    - **Inline Code Documentation (e.g., JSDoc)**: Provides documentation directly within the code, which is useful for API reference and developer guidance. However, it may not cover broader project aspects such as architecture and usage.
-    - **Markdown Files**: Provide a more comprehensive and structured approach to documentation, including high-level overviews and developer guides.
-
-- **Dedicated Documentation Platforms vs. Wikis**:
-    - **Wikis (e.g., GitHub Wiki)**: Useful for collaborative documentation and internal knowledge sharing but may lack advanced features and structured layout compared to dedicated platforms.
-    - **Dedicated Documentation Platforms**: Offer more features for creating and managing extensive documentation, including search functionality and better organization.
-
-- **Dedicated Documentation Platforms vs. API Documentation Tools**:
-    - **API Documentation Tools (e.g., Swagger, Postman)**: Focus on API documentation and testing, providing detailed information about API endpoints and usage. They are essential for API development but may not cover other aspects of the project.
-    - **Dedicated Documentation Platforms**: Provide a broader solution for all project documentation needs, including architecture, components, and usage guides.
-
-- **Storybook vs. Kitchen Sink**:
-    - **Storybook**: Provides an interactive environment for developing and documenting UI components, showcasing different states and variations. It is well-suited for visual documentation and testing of components. However, it focuses primarily on component-level documentation rather than overall project documentation.
-    - **Kitchen Sink**: Refers to a collection of example components and use cases typically bundled together. It can be useful for demonstrating various components but may lack the interactive and comprehensive features of Storybook.
-
-## Pros and Cons of the Options
-
-### Markdown Files in Repository
-
-- **Pros**:
-    - Simple to create and maintain
-    - Integrated with version control systems
-    - Easily accessible within the repository
-
-- **Cons**:
-    - Limited features compared to dedicated documentation platforms
-    - May lack advanced navigation and search capabilities
-
-### Dedicated Documentation Platforms (e.g., Docusaurus)
-
-- **Pros**:
-    - Provides a structured and comprehensive documentation solution
-    - Supports advanced features like search, versioning, and interactive examples
-    - Easy to navigate and user-friendly
-
-- **Cons**:
-    - Requires setup and configuration
-    - May involve additional overhead for maintaining the documentation site
-
-### Inline Code Documentation (e.g., JSDoc)
-
-- **Pros**:
-    - Provides direct documentation within the code
-    - Useful for API reference and developer guidance
-    - Easily generated from code comments
-
-- **Cons**:
-    - Limited to code-level documentation
-    - May not cover broader project aspects
-
-### Wikis (e.g., GitHub Wiki)
-
-- **Pros**:
-    - Useful for collaborative documentation and internal knowledge sharing
-    - Easy to update and maintain
-
-- **Cons**:
-    - May lack advanced features and structured layout
-    - Limited support for comprehensive documentation
-
-### API Documentation Tools (e.g., Swagger, Postman)
-
-- **Pros**:
-    - Focused on API documentation and testing
-    - Provides detailed information about API endpoints and usage
-
-- **Cons**:
-    - Limited to API documentation
-    - May not cover other aspects of the project
-
-### Storybook
-
-- **Pros**:
-    - Interactive environment for developing and documenting UI components
-    - Showcases different states and variations of components
-    - Enhances component-level documentation and testing
-
-- **Cons**:
-    - Focuses primarily on UI components
-    - May not address broader project documentation needs
-
-### Kitchen Sink
-
-- **Pros**:
-    - Provides examples of various components and use cases
-    - Useful for demonstrating component functionality
-
-- **Cons**:
-    - May lack the interactive and comprehensive features of Storybook
-    - Typically less structured and organized
+This combination provides a comprehensive documentation strategy that covers various aspects of the project, from UI components to general project information and inline code documentation.
 
 ## Links
 
-- [Markdown](https://www.markdownguide.org/)
-- [Docusaurus](https://docusaurus.io/)
-- [JSDoc](https://jsdoc.app/)
-- [GitHub Wiki](https://docs.github.com/en/github/building-a-strong-community/about-wikis)
-- [Swagger](https://swagger.io/)
-- [Postman](https://www.postman.com/)
-- [Storybook](https://storybook.js.org/)
-- [Kitchen Sink](https://storybook.js.org/docs/react/essentials/kitchen-sink)
-
+- [Storybook Official Website](https://storybook.js.org/)
+- [Docusaurus Official Website](https://docusaurus.io/)
+- [JSDoc Official Website](https://jsdoc.app/)
+- [Markdown Guide](https://www.markdownguide.org/)
+- [GitHub Pages](https://pages.github.com/)
+- [Confluence Official Website](https://www.atlassian.com/software/confluence)

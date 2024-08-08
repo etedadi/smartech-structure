@@ -1,119 +1,106 @@
-# ADR: API / Server State Management for Large Scale React.js Project
+# ADR: API / Server State Management
 
 ## Context and Problem Statement
 
-Managing API and server state efficiently is crucial for ensuring data consistency, performance, and scalability in a large-scale React.js project. With over 100,000 users and complex data interactions, the solution for API and server state management needs to handle data fetching, caching, synchronization, and error handling effectively.
+In our large-scale React.js project, managing the server state efficiently is critical to ensure a seamless user experience and maintain application performance. We need a robust solution to handle API requests, manage server state, and synchronize data between the client and server.
 
 ## Decision Drivers
 
-1. **Data Fetching**: The solution should efficiently handle data fetching from APIs, including support for various request types and handling of asynchronous operations.
-2. **Caching**: It should provide caching mechanisms to reduce the number of API calls and improve performance.
-3. **Synchronization**: The tool should manage synchronization of server data with client-side state, including handling updates and invalidations.
-4. **Error Handling**: The solution should support comprehensive error handling and reporting for API interactions.
-5. **Scalability**: It should scale with the application’s data requirements and complexity.
-6. **Integration**: The tool should integrate seamlessly with the existing state management solution and other parts of the application.
+1. **Performance**: Efficiently handles data fetching and caching.
+2. **Ease of Use**: Simple setup and developer-friendly API.
+3. **Scalability**: Capable of scaling with the application and user base.
+4. **Integration**: Seamlessly integrates with React and our existing tech stack.
+5. **Community Support**: Active community and good documentation.
+6. **Customization**: Allows for customization to fit specific project needs.
 
 ## Considered Options
 
 1. **React Query**
 2. **Apollo Client**
-3. **SWAPI (Service Worker API)**
-4. **Axios with Redux Toolkit Query**
+3. **Redux Toolkit (RTK Query)**
+4. **SWR**
 5. **Relay**
+
+### Option 1: React Query
+
+**Description**: React Query is a data-fetching library for React applications that simplifies data fetching, caching, synchronization, and more.
+
+#### Pros
+- **Ease of Use**: Simple and intuitive API.
+- **Performance**: Optimized for performance with built-in caching and background refetching.
+- **Features**: Provides powerful features like pagination, infinite scrolling, and optimistic updates.
+
+#### Cons
+- **Learning Curve**: Requires understanding of hooks and React concepts.
+- **Customization**: Limited compared to more extensive state management libraries.
+
+### Option 2: Apollo Client
+
+**Description**: Apollo Client is a comprehensive state management library for JavaScript that enables you to manage both local and remote data with GraphQL.
+
+#### Pros
+- **Integration**: Excellent integration with GraphQL.
+- **Features**: Rich feature set, including caching, pagination, and real-time updates.
+- **Community Support**: Strong community and extensive documentation.
+
+#### Cons
+- **Complexity**: More complex setup and steeper learning curve.
+- **Overhead**: May introduce unnecessary overhead if not using GraphQL.
+
+### Option 3: Redux Toolkit (RTK Query)
+
+**Description**: Redux Toolkit (RTK) Query is a powerful data-fetching and caching tool for Redux applications.
+
+#### Pros
+- **Integration**: Seamless integration with existing Redux state management.
+- **Performance**: Optimized for performance with built-in caching and deduplication.
+- **Features**: Provides tools for managing server state, including optimistic updates and automatic retries.
+
+#### Cons
+- **Complexity**: Requires understanding of Redux and RTK.
+- **Boilerplate**: Can introduce additional boilerplate code compared to simpler libraries.
+
+### Option 4: SWR
+
+**Description**: SWR (Stale-While-Revalidate) is a React Hooks library for data fetching.
+
+#### Pros
+- **Ease of Use**: Simple and intuitive API with minimal setup.
+- **Performance**: Optimized for performance with background data revalidation.
+- **Integration**: Easily integrates with React and Next.js.
+
+#### Cons
+- **Features**: Limited features compared to more comprehensive libraries.
+- **Customization**: Less customizable for complex state management needs.
+
+### Option 5: Relay
+
+**Description**: Relay is a JavaScript framework for building data-driven React applications with GraphQL.
+
+#### Pros
+- **Performance**: Highly optimized for performance with efficient data fetching and caching.
+- **Integration**: Designed to work seamlessly with GraphQL and React.
+- **Scalability**: Scales well with large applications and complex data requirements.
+
+#### Cons
+- **Complexity**: Steep learning curve and complex setup.
+- **GraphQL Dependency**: Tightly coupled with GraphQL, not suitable for REST APIs.
 
 ## Decision Outcome
 
-### Chosen Tool: **React Query**
+### Chosen Approach: **React Query with Apollo Client for GraphQL**
 
-#### Justification
+For our large-scale React.js project, we recommend using **React Query** for general data fetching and **Apollo Client** for GraphQL-based data management:
 
-- **Data Fetching**: React Query simplifies data fetching with built-in hooks and support for various request types (GET, POST, etc.). It abstracts away much of the boilerplate code associated with data fetching and provides a straightforward API for managing server state.
+- **React Query**: Provides a simple and powerful API for managing server state, with built-in caching, background data fetching, and other performance optimizations. It integrates well with React and Next.js, making it a suitable choice for our project.
+- **Apollo Client**: For projects using GraphQL, Apollo Client offers a comprehensive solution with excellent integration, caching, and real-time updates. It handles both local and remote data management efficiently.
 
-- **Caching**: React Query offers powerful caching capabilities, allowing data to be cached and automatically refreshed based on configurable intervals. This reduces the number of API calls and improves application performance.
-
-- **Synchronization**: React Query handles data synchronization with the server by providing utilities for refetching, background updates, and invalidating cached data when necessary. It ensures that client-side data remains in sync with the server.
-
-- **Error Handling**: Provides comprehensive error handling mechanisms, including automatic retries, error reporting, and customizable error handling logic. This helps manage API failures and improve the user experience.
-
-- **Scalability**: React Query is designed to scale with large applications and handle complex data interactions efficiently. It manages caching and synchronization in a way that supports both small and large-scale projects.
-
-- **Integration**: React Query integrates well with existing state management solutions like Redux and Context API. It can be used alongside other tools and fits seamlessly into the React ecosystem.
-
-#### Trade-offs
-
-- **React Query vs. Apollo Client**:
-    - **Apollo Client**: Provides a robust solution for managing GraphQL data, including caching and real-time updates. It is well-suited for projects using GraphQL but may be more complex to set up and configure compared to React Query.
-    - **React Query**: More focused on REST APIs and offers a simpler setup with built-in caching and synchronization features. It is more flexible for various API types and simpler to integrate.
-
-- **React Query vs. Axios with Redux Toolkit Query**:
-    - **Axios with Redux Toolkit Query**: Combines Axios for HTTP requests with Redux Toolkit Query for managing server state. While powerful, it involves additional setup and configuration compared to React Query.
-    - **React Query**: Provides an all-in-one solution for data fetching and state management with less boilerplate and configuration.
-
-- **React Query vs. Relay**:
-    - **Relay**: A powerful framework for managing GraphQL data with a focus on data consistency and performance. It may be overkill for projects not using GraphQL and requires more extensive setup.
-    - **React Query**: More general-purpose and suitable for a wide range of API types, making it a better fit for REST-based projects.
-
-## Pros and Cons of the Options
-
-### React Query
-
-- **Pros**:
-    - Simplifies data fetching and server state management
-    - Powerful caching and synchronization features
-    - Comprehensive error handling and reporting
-    - Scales well with large applications
-    - Integrates seamlessly with existing state management solutions
-
-- **Cons**:
-    - Primarily designed for REST APIs, less tailored for GraphQL
-    - Some learning curve for advanced features and configurations
-
-### Apollo Client
-
-- **Pros**:
-    - Excellent support for GraphQL data management
-    - Advanced caching and real-time update capabilities
-    - Comprehensive toolset for managing server state
-
-- **Cons**:
-    - More complex setup and configuration
-    - Overhead for projects not using GraphQL
-
-### SWAPI (Service Worker API)
-
-- **Pros**:
-    - Allows for offline capabilities and caching of API requests
-    - Provides control over network requests and caching
-
-- **Cons**:
-    - More focused on offline support rather than comprehensive state management
-    - Requires additional setup and configuration
-
-### Axios with Redux Toolkit Query
-
-- **Pros**:
-    - Combines Axios for HTTP requests with Redux Toolkit Query for server state management
-    - Provides a powerful solution for managing server state
-
-- **Cons**:
-    - Additional setup and configuration required
-    - More boilerplate compared to React Query
-
-### Relay
-
-- **Pros**:
-    - Advanced data management for GraphQL
-    - Strong focus on data consistency and performance
-
-- **Cons**:
-    - Requires a GraphQL backend
-    - More complex setup and configuration
+This combination ensures a robust, scalable, and efficient solution for managing server state and API interactions in our project.
 
 ## Links
 
-- [React Query](https://react-query.tanstack.com/)
-- [Apollo Client](https://www.apollographql.com/docs/react/)
-- [Axios](https://axios-http.com/)
-- [Redux Toolkit Query](https://redux-toolkit.js.org/rtk-query/overview)
-- [Relay](https://relay.dev/)
-
+- [React Query Documentation](https://react-query.tanstack.com/)
+- [Apollo Client Documentation](https://www.apollographql.com/docs/react/)
+- [Redux Toolkit Documentation](https://redux-toolkit.js.org/)
+- [SWR Documentation](https://swr.vercel.app/)
+- [Relay Documentation](https://relay.dev/)
