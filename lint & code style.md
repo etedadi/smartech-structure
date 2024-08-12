@@ -1,4 +1,4 @@
-# ADR: Linting and Code Style for Large Scale React.js Project
+# ADR: Linting and Code Style
 
 ## Context and Problem Statement
 

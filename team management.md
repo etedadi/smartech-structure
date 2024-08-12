@@ -1,4 +1,4 @@
-# ADR: Team Management for Large Scale React.js Project
+# ADR: Team Management
 
 ## Context and Problem Statement
 

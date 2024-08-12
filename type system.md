@@ -1,4 +1,4 @@
-# ADR: Type System for Large Scale React.js Project
+# ADR: Type System
 
 ## Context and Problem Statement
 

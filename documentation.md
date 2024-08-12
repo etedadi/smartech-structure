@@ -1,4 +1,4 @@
-# ADR: Documentation Strategy for Large Scale React.js Project
+# ADR: Documentation Strategy
 
 ## Context and Problem Statement
 

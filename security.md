@@ -1,4 +1,4 @@
-# ADR: Security for Large Scale React.js Project
+# ADR: Security
 
 ## Context and Problem Statement
 

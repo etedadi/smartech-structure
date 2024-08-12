@@ -1,4 +1,4 @@
-# ADR: Performance Optimization for Large Scale React.js Project
+# ADR: Performance Optimization
 
 ## Context and Problem Statement
 

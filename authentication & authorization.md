@@ -1,4 +1,4 @@
-# ADR: Authentication & Authorization for Large Scale React.js Project
+# ADR: Authentication & Authorization
 
 ## Context and Problem Statement
 

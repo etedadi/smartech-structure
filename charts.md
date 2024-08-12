@@ -1,4 +1,4 @@
-# ADR: Charting Libraries for Large Scale React.js Project
+# ADR: Charting Libraries
 
 ## Context and Problem Statement
 

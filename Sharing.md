@@ -1,4 +1,4 @@
-# ADR: Sharing Source Code Between Teams and Integrating Products for Large Scale React.js Project
+# ADR: Sharing Source Code Between Teams and Integrating Products
 
 ## Context and Problem Statement
 

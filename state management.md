@@ -1,4 +1,4 @@
-# ADR: State Management for Large Scale React.js Project
+# ADR: State Management
 
 ## Context and Problem Statement
 

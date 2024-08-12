@@ -1,4 +1,4 @@
-# ADR: Package Manager for Large Scale React.js Project
+# ADR: Package Manager
 
 ## Context and Problem Statement
 

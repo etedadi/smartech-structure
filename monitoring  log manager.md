@@ -1,4 +1,4 @@
-# ADR: Monitoring and Log Management for Large Scale React.js Project
+# ADR: Monitoring and Log Management
 
 ## Context and Problem Statement
 
